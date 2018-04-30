@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 
+console.log('* * * * * *');
+
 module.exports = {
     entry: './src/index.js',
 
@@ -15,12 +17,16 @@ module.exports = {
         port: 4000,
         contentBase: __dirname + '/public/',
     },
+    
+    performance: {
+        hints: false
+    },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
                     cacheDirectory: true,
