@@ -9,7 +9,6 @@ class App extends Component {
     }
 
     render(){
-        var cnt = 0;
         return (
             <div>
                 <Contact/>
