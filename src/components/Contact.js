@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ContactInfo from './ContactsInfo';
 import ContactDetails from './ContactDetails';
-import update from 'react-addons-update'
+import update from 'react-addons-update'    // Immutability Helper
 export default class Contact extends Component {
     
     constructor(props) {
@@ -26,6 +26,10 @@ export default class Contact extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleClick =  this.handleClick.bind(this);
+
+        this.handleCreate =  this.handleCreate.bind(this);
+        this.handleRemove =  this.handleRemove.bind(this);
+        this.handleEdit =  this.handleEdit.bind(this);
     }
     
     handleChange(e) {
@@ -40,6 +44,36 @@ export default class Contact extends Component {
             selectKey: key
         });
         console.log(key, ' is selected~!!!');
+    }
+
+    handleCreate(contact) {
+        this.setState({
+            // Immutability Helper : update - push
+            contactData: update(this.state.contactData, {$push: [contact]})
+        });
+    }
+    
+    handleRemove() {
+        this.setState({
+            // Immutability Helper : update - splice
+            contactData: update(this.state.contactData,
+                { $splice: [[this.state.selectKey, 1]] }
+            ),
+            selectKey: -1
+        })
+    }
+    
+    handleEdit(name, phone) {
+        this.state({
+            // Immutability Helper : update - set
+            contactData: update(this.state.contactData,
+            {
+                [this.state.selectKey]: {
+                    name: {$set: name},
+                    phone: {$set: phone}
+                }
+            })
+        })
     }
 
     render() {
