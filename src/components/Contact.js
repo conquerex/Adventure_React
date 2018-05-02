@@ -110,7 +110,8 @@ export default class Contact extends Component {
                 <ContactDetails
                     isSelected={this.state.selectKey != -1}
                     contact={this.state.contactData[this.state.selectKey]}
-                    onRemove={this.handleRemove}/>
+                    onRemove={this.handleRemove}
+                    onEdit={this.handleEdit} />
                 <p/>
                 <ContactCreate
                     onCreate={this.handleCreate} />
