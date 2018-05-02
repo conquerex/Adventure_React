@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ContactInfo from './ContactsInfo';
 import ContactDetails from './ContactDetails';
 import update from 'react-addons-update'    // Immutability Helper
+import ContactCreate from './ContactCreate';
 export default class Contact extends Component {
     
     constructor(props) {
@@ -106,6 +107,9 @@ export default class Contact extends Component {
                 <ContactDetails
                     isSelected={this.state.selectKey != -1}
                     contact={this.state.contactData[this.state.selectKey]}/>
+                <p/>
+                <ContactCreate
+                    onCreate={this.handleCreate} />
             </div>
         );
     }
