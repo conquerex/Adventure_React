@@ -3,8 +3,8 @@ import ContactInfo from './ContactsInfo';
 import ContactDetails from './ContactDetails';
 import update from 'react-addons-update'    // Immutability Helper
 import ContactCreate from './ContactCreate';
-export default class Contact extends Component {
-    
+
+export default class Contact extends Component {  
     constructor(props) {
         super(props);
         this.state = {
@@ -55,6 +55,9 @@ export default class Contact extends Component {
     }
     
     handleRemove() {
+        if(this.state.selectKey < 0) {
+            return;
+        }
         this.setState({
             // Immutability Helper : update - splice
             contactData: update(this.state.contactData,
@@ -106,7 +109,8 @@ export default class Contact extends Component {
                 <p/>
                 <ContactDetails
                     isSelected={this.state.selectKey != -1}
-                    contact={this.state.contactData[this.state.selectKey]}/>
+                    contact={this.state.contactData[this.state.selectKey]}
+                    onRemove={this.handleRemove}/>
                 <p/>
                 <ContactCreate
                     onCreate={this.handleCreate} />
