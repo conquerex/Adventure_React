@@ -24,7 +24,7 @@ module.exports = { //이 객체를 모듈로 내보내겠다. 즉, 다른 코드
                 exclude: /node_modules/,
                 query: {
                     cacheDirectory: true,
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'stage-0', 'react']
                 }
             }
         ]
