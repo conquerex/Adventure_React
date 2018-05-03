@@ -68,7 +68,7 @@ export default class Contact extends Component {
     }
     
     handleEdit(name, phone) {
-        this.state({
+        this.setState({
             // Immutability Helper : update - set
             contactData: update(this.state.contactData,
             {
