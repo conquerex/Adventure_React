@@ -32,7 +32,25 @@ export default class Contact extends Component {
         this.handleRemove =  this.handleRemove.bind(this);
         this.handleEdit =  this.handleEdit.bind(this);
     }
-    
+
+    // Save data on localStorage
+    componentWillMount() {
+        const contactData = localStorage.contactData;
+
+        if (contactData) {
+            this.setState({
+                contactData: JSON.parse(contactData)
+            })
+        }
+    }
+
+    // Save data on localStorage
+    componentDidUpdate(prevProps, prevState) {
+        if(JSON.stringify(prevProps.contactData) != JSON.stringify(this.state.contactData)) {
+            localStorage.contactData = JSON.stringify(this.state.contactData);
+        }
+    }
+
     handleChange(e) {
         // this 바인딩 필요. 임의 함수 만들때 반드시 필요
         this.setState({
