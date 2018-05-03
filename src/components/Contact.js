@@ -3,8 +3,8 @@ import ContactInfo from './ContactsInfo';
 import ContactDetails from './ContactDetails';
 import update from 'react-addons-update'    // Immutability Helper
 import ContactCreate from './ContactCreate';
-export default class Contact extends Component {
-    
+
+export default class Contact extends Component {  
     constructor(props) {
         super(props);
         this.state = {
@@ -32,7 +32,25 @@ export default class Contact extends Component {
         this.handleRemove =  this.handleRemove.bind(this);
         this.handleEdit =  this.handleEdit.bind(this);
     }
-    
+
+    // Save data on localStorage
+    componentWillMount() {
+        const contactData = localStorage.contactData;
+
+        if (contactData) {
+            this.setState({
+                contactData: JSON.parse(contactData)
+            })
+        }
+    }
+
+    // Save data on localStorage
+    componentDidUpdate(prevProps, prevState) {
+        if(JSON.stringify(prevProps.contactData) != JSON.stringify(this.state.contactData)) {
+            localStorage.contactData = JSON.stringify(this.state.contactData);
+        }
+    }
+
     handleChange(e) {
         // this 바인딩 필요. 임의 함수 만들때 반드시 필요
         this.setState({
@@ -55,6 +73,9 @@ export default class Contact extends Component {
     }
     
     handleRemove() {
+        if(this.state.selectKey < 0) {
+            return;
+        }
         this.setState({
             // Immutability Helper : update - splice
             contactData: update(this.state.contactData,
@@ -65,7 +86,7 @@ export default class Contact extends Component {
     }
     
     handleEdit(name, phone) {
-        this.state({
+        this.setState({
             // Immutability Helper : update - set
             contactData: update(this.state.contactData,
             {
@@ -106,7 +127,9 @@ export default class Contact extends Component {
                 <p/>
                 <ContactDetails
                     isSelected={this.state.selectKey != -1}
-                    contact={this.state.contactData[this.state.selectKey]}/>
+                    contact={this.state.contactData[this.state.selectKey]}
+                    onRemove={this.handleRemove}
+                    onEdit={this.handleEdit} />
                 <p/>
                 <ContactCreate
                     onCreate={this.handleCreate} />

@@ -10,6 +10,7 @@ export default class ContactCreate extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     handleChange(e) {
@@ -30,7 +31,16 @@ export default class ContactCreate extends Component {
             name: '',
             phone: ''
         });
+
+        // 생성 뒤 다시 name input box에 포커싱을 주고 싶은 경우
+        this.nameInput.focus();
     }
+
+    handleKeyPress(e) {
+        if(e.charCode === 13) {
+            this.handleClick();
+        }
+    };
 
     render() {
         return (
@@ -42,13 +52,15 @@ export default class ContactCreate extends Component {
                         name="name" 
                         placeholder="Name"
                         value={this.state.name}
-                        onChange={this.handleChange} />
+                        onChange={this.handleChange}
+                        ref={(ref) => { this.nameInput = ref}}/>
                     <input 
                         type="text" 
                         name="phone" 
                         placeholder="Phone number"
                         value={this.state.phone}
-                        onChange={this.handleChange} />
+                        onChange={this.handleChange}
+                        onKeyPress={this.handleKeyPress}/>
                 </p>
                 <button onClick={this.handleClick}>CREATE</button>
             </div>
