@@ -31,6 +31,9 @@ export default class ContactCreate extends Component {
             name: '',
             phone: ''
         });
+
+        // 생성 뒤 다시 name input box에 포커싱을 주고 싶은 경우
+        this.nameInput.focus();
     }
 
     handleKeyPress(e) {
@@ -49,7 +52,8 @@ export default class ContactCreate extends Component {
                         name="name" 
                         placeholder="Name"
                         value={this.state.name}
-                        onChange={this.handleChange} />
+                        onChange={this.handleChange}
+                        ref={(ref) => { this.nameInput = ref}}/>
                     <input 
                         type="text" 
                         name="phone" 
